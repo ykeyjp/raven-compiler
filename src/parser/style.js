@@ -1,4 +1,4 @@
-const scriptExpr = /^<style\b[^>]*(?:lang="(\S+)"){0,1}\b[^>]*>([\s\S]*?)^<\/style>/m;
+const scriptExpr = /<style\b[^>]*(?:lang="(\S+)"){0,1}\b[^>]*>([\s\S]*?)<\/style>/m;
 const replaceLineBreaks = /([,;{}])\r?\n\s*/g;
 
 export default function parseStyle(source) {

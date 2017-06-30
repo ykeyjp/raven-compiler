@@ -26,5 +26,27 @@ export function transform(source, file, options) {
   const template = parseTemplate(source);
   const script = parseScript(source);
   const style = parseStyle(source);
-  //return `raven.tag('${tagName}', {html:'${template}',attrs:'${attributes}',css:'${style}',init:function(){${script}}});`;
+  const data = {
+    imports: script.imports,
+    html: template.tmpl,
+    attrs: template.attrs,
+    init: script.code,
+  };
+  return Promise.resolve(data).then(data => {
+    const sass = require('./transform/sass');
+    return sass(
+      Object.assign({}, options.sass, {
+        data: style.code,
+        includePaths: [path.dirname(file)],
+        outputStyle: 'compressed',
+      })
+    )
+      .then(result => {
+        data.css = result.css;
+        return data;
+      })
+      .then(data => {
+        return `${data.imports}\nraven.tag('${tagName}',{html:'${data.html}',attrs:'${data.attrs}',css:'${data.css}',init:function(){${data.init}}});`;
+      });
+  });
 }

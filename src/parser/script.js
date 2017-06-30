@@ -1,4 +1,4 @@
-const scriptExpr = /^<script\b[^>]*(?:lang="(\S+)"){0,1}\b[^>]*>([\s\S]*?)^<\/script>/m;
+const scriptExpr = /<script\b[^>]*(?:lang="(\S+)"){0,1}\b[^>]*>([\s\S]*?)<\/script>/m;
 const replaceLineBreaks = /([,;{}])\r?\n\s*/g;
 const importExpr = /(?:^|\s)(import\s[\s\S]+?;)(?:$|\s)/gm;
 

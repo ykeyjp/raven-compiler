@@ -1,4 +1,4 @@
-const templateExpr = /^<template(\b[^>]*)>([\s\S]*?)^<\/template>/m;
+const templateExpr = /<template(\b[^>]*)>([\s\S]*?)<\/template>/m;
 const trimTagSpacesExpr = /(\/[\S]+)>[\s]+(<)/g;
 const replaceLineBreaks = /\r?\n/g;
 const replaceAttributeSpace = /\s+/;
