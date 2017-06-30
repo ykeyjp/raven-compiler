@@ -21,11 +21,18 @@
   "babel": {
     "presets": [
       "es2015"
-    ]
+    ],
+    "ignore": "test.js",
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
   },
   "bugs": "https://github.com/ykeyjp/raven-compiler/issues",
   "dependencies": {
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "node-sass": "^4.5.3"
   },
   "devDependencies": {
     "@types/node": "^8.0.5",
@@ -33,7 +40,9 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.24.1",
+    "cross-env": "^5.0.1",
     "npm-run-all": "^4.0.2",
+    "nyc": "^11.0.3",
     "prettier": "^1.5.2",
     "xo": "^0.18.2"
   },
@@ -52,11 +61,13 @@
     "url": "https://github.com/ykeyjp/raven-compiler.git"
   },
   "scripts": {
-    "build": "babel src/ -d lib/ -s",
+    "build": "cross-env BABEL_ENV=production babel src/ -d lib/ -s",
+    "cover": "nyc ava",
+    "cover:report": "nyc report --reporter=html",
     "format": "prettier --write --single-quote --semi=true --trailing-comma es5 --no-bracket-spacing {src,test}/**/*.js",
     "lint": "xo {src,test}/**/*.js",
-    "test": "ava",
-    "test:watch": "ava --watch"
+    "report": "run-s cover cover:report",
+    "test": "ava"
   },
   "xo": {
     "space": true,
@@ -82,6 +93,18 @@
       "space-before-function-paren": [
         2,
         "never"
+      ],
+      "operator-linebreak": [
+        "error",
+        "after",
+        {
+          "overrides": {
+            "-=": "before",
+            "+=": "before",
+            "?": "before",
+            ":": "before"
+          }
+        }
       ]
     }
   }
