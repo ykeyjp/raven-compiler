@@ -65,7 +65,7 @@
     "url": "https://github.com/ykeyjp/raven-compiler.git"
   },
   "scripts": {
-    "build": "cross-env BABEL_ENV=production babel src/ -d lib/ -s",
+    "build": "cross-env BABEL_ENV=production babel src/ -d lib/",
     "cover": "nyc ava",
     "cover:report": "nyc report --reporter=html",
     "format": "prettier --write --single-quote --semi=true --trailing-comma es5 --no-bracket-spacing {src,test}/**/*.js",
