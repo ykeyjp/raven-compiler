@@ -1,7 +1,6 @@
 import * as path from 'path';
 import test from 'ava';
 import * as compiler from '../src/compiler';
-import sass from '../src/transform/sass';
 
 const tag1 = `
 <template class="$classes"
@@ -18,12 +17,7 @@ this.props = {
 </script>
 
 <style>
-:root {
-    display: block;
-    h1 {
-        font-size: 2rem;
-    }
-}
+:root{display:block}
 </style>
 `;
 
@@ -51,18 +45,6 @@ test('transform', async t => {
     path.resolve(__dirname, 'custom1.tag')
   );
   t.regex(result, /<h1>custom1 tag<\/h1<p>simple example<\/p>/);
-  t.regex(result, /:root{display:block}:root h1{font-size:2rem}/);
+  t.regex(result, /:root{display:block}/);
   t.regex(result, /this\.props\s*=\s*{\s*classes:\s*'custom-tag',\s*};/);
-});
-
-test('sass', async t => {
-  const result1 = await sass({
-    data: 'div{span{color:red;}}',
-    outputStyle: 'compressed',
-    sourceMap: 'string',
-  });
-  t.regex(result1.css, /^div span{color:red}/);
-  t.not(result1.map, '');
-  const err = await t.throws(sass({data: 'div{--}'}));
-  t.regex(err.message, /^Invalid CSS after/);
 });

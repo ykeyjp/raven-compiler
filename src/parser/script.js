@@ -7,9 +7,9 @@ export default function parseScript(source) {
   importExpr.lastIndex = 0;
   const m = scriptExpr.exec(source);
   if (m) {
-    const lang = m[1];
+    const lang = m[1] || 'es6';
     let m2;
-    let imports = "import * as raven from '@ykey/raven';";
+    let imports = "import raven from '@ykey/raven';";
     while ((m2 = importExpr.exec(m[2]))) {
       imports += '\n' + m2[1];
     }
@@ -19,5 +19,5 @@ export default function parseScript(source) {
       .replace(replaceLineBreaks, '$1 ');
     return {imports, code, lang};
   }
-  return {imports: '', code: '', lang: ''};
+  return {imports: '', code: '', lang: 'es6'};
 }

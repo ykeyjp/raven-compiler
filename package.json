@@ -14,6 +14,11 @@
     "source": [
       "src/**/*.js"
     ],
+    "concurrency": 4,
+    "failFast": true,
+    "failWithoutAssertions": false,
+    "tap": false,
+    "powerAssert": false,
     "require": [
       "babel-register"
     ]
@@ -34,8 +39,7 @@
   },
   "bugs": "https://github.com/ykeyjp/raven-compiler/issues",
   "dependencies": {
-    "glob": "^7.1.2",
-    "node-sass": "^4.5.3"
+    "glob": "^7.1.2"
   },
   "devDependencies": {
     "@types/node": "^8.0.5",

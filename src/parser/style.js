@@ -5,9 +5,9 @@ export default function parseStyle(source) {
   scriptExpr.lastIndex = 0;
   const m = scriptExpr.exec(source);
   if (m) {
-    const lang = m[1];
+    const lang = m[1] || 'css';
     const code = m[2].trim().replace(replaceLineBreaks, '$1 ');
     return {code, lang};
   }
-  return {code: '', lang: ''};
+  return {code: '', lang: 'css'};
 }
